@@ -1,7 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <math.h>
-#include <ctime>
+#include <ctime> // Uso da função clock() para contar o tempo de partida.
 
 using namespace std;
 
@@ -108,6 +108,10 @@ int main()
 		cout<<endl;
 	}
 	
+	// Contagem do tempo de jogo
+	
+	double tempo_de_inicio_do_jogo = clock();
+	
 	//	Declaração das hastes para o jogo e Tabuleiro.
 	
 	int Haste_Gabarito[Logica.Qnt_Discos+1];
@@ -117,10 +121,9 @@ int main()
 	
 	// Declaração das matrizes para impressão do jogo.
 	
-	//char Tabuleiro[((Logica.Qnt_Discos)*6)-1][((Logica.Qnt_Discos)*6)-1] = {NULL};
-	char Haste_1M[Logica.Qnt_Discos+1][(6*(Logica.Qnt_Discos))-1] = {" "};
-	char Haste_2M[Logica.Qnt_Discos+1][(6*(Logica.Qnt_Discos))-1] = {" "};
-	char Haste_3M[Logica.Qnt_Discos+1][(6*(Logica.Qnt_Discos))-1] = {" "};
+	char Haste_1M[Logica.Qnt_Discos+1][(6*(Logica.Qnt_Discos))-1] = {' '};
+	char Haste_2M[Logica.Qnt_Discos+1][(6*(Logica.Qnt_Discos))-1] = {' '};
+	char Haste_3M[Logica.Qnt_Discos+1][(6*(Logica.Qnt_Discos))-1] = {' '};
 	
 	//	Atribuição dos discos.
 	
@@ -137,10 +140,9 @@ int main()
 	Logica.Ponteiro_Haste_2=&Haste_2[0];
 	Logica.Ponteiro_Haste_3=&Haste_3[0];
 	
-	//	Criação de 3 matrizes, uma para cada Pino (Haste)
+	//	Criação de 3 matrizes para impressão, uma para cada haste.
 		
-		
-		for (int i=0;i<Logica.Qnt_Discos+1;i++)
+		for (int i=0;i<Logica.Qnt_Discos+1;i++) // Haste 1
 		{
 			for (int j=0;j<(6*(Logica.Qnt_Discos))-1;j++)
 			{
@@ -159,7 +161,7 @@ int main()
 				
 				else
 				{
-					if ((j>((3*Logica.Qnt_Discos)-3*Haste_1[i] +1)) && (j <=((3*Logica.Qnt_Discos)+3*Haste_1[i] -2)))
+					if ((j>((3*Logica.Qnt_Discos)-3*Haste_1[i] +1)) && (j <=((3*Logica.Qnt_Discos)+3*Haste_1[i] - 2)))
 					{
 						Haste_1M[i][j] = 'X';
 					}
@@ -168,7 +170,7 @@ int main()
 			
 		}
 		
-		for (int i=0;i<Logica.Qnt_Discos+1;i++)
+		for (int i=0;i<Logica.Qnt_Discos+1;i++) // Haste 2 e 3
 		{
 			for (int j=0;j<(6*(Logica.Qnt_Discos))-1;j++)
 			{
@@ -178,44 +180,12 @@ int main()
 					if(j == (3*Logica.Qnt_Discos)-1)
 					{
 						Haste_2M[i][j] = '|';
+						Haste_3M[i][j] = '|';
 					}
 					else
 					{
 						Haste_2M[i][j] = ' ';
-					}
-				}
-				else
-				{
-					if ((j>((3*Logica.Qnt_Discos)-3*Haste_2[i] +1)) && (j <=((3*Logica.Qnt_Discos)+3*Haste_2[i] -2)) )
-					{
-						Haste_2M[i][j] = 'X';
-					}
-				}
-			}
-			
-		}
-		
-		for (int i=0;i<Logica.Qnt_Discos+1;i++)
-		{
-			for (int j=0;j<(6*(Logica.Qnt_Discos))-1;j++)
-			{
-				
-				if(Haste_3[i] == 0)
-				{
-					if(j == (3*Logica.Qnt_Discos)-1)
-					{
-						Haste_3M[i][j] = '|';
-					}	
-					else
-					{
 						Haste_3M[i][j] = ' ';
-					}
-				}
-				else
-				{
-					if ((j>((3*Logica.Qnt_Discos)-3*Haste_3[i] +1)) && (j <=((3*Logica.Qnt_Discos)+3*Haste_3[i] -2)) )
-					{
-						Haste_3M[i][j] = 'X';
 					}
 				}
 			}
@@ -232,7 +202,7 @@ int main()
 				{
 					cout<<Haste_1M[i][j];
 				}
-				else if (j>12*(Logica.Qnt_Discos)-2)
+				else if (j>12*(Logica.Qnt_Discos)-3)
 				{
 					cout<<Haste_3M[i][j-(12*(Logica.Qnt_Discos)-2)];
 				}
@@ -322,7 +292,7 @@ int main()
 			Logica.Envio_Pino(Logica.Ponteiro_Haste_3,Logica.Ponteiro_Haste_2);
 		}
 			
-		//	Impressão vetorial dos discos.
+		//	Atribuição dos valores das matrizes de impressão.
 		
 		cout<<endl;
 		for (int i=0;i<Logica.Qnt_Discos+1;i++)
@@ -418,7 +388,7 @@ int main()
 				{
 					cout<<Haste_1M[i][j];
 				}
-				else if (j>12*(Logica.Qnt_Discos)-2)
+				else if (j>12*(Logica.Qnt_Discos)-3)
 				{
 					cout<<Haste_3M[i][j-(12*(Logica.Qnt_Discos)-2)];
 				}
@@ -445,4 +415,8 @@ int main()
 	}
 	
 	cout<<"\nJogo Concluido.\n";
+	
+	// Cálculo e impressão do tempo de jogo.
+	
+	cout << "\nEsta partida de Torres de Hanoi levou " << (clock() - tempo_de_inicio_do_jogo)/1000.0 << " segundos.";
 }
