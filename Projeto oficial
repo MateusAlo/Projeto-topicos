@@ -13,24 +13,27 @@ class Jogo_Logica
 	int Posicao_Femea;
 	
 	public:
+	//Função responsável por enviar um disco de uma haste (Macho) para outra (Femea)
 	
-	void Envio_Pino (int* Macho, int* Femea)
+	void Envio_Pino (int* Macho, int* Femea)	
 	{
+		//Se o pino estiver vazio
 		if (*(Macho+Qnt_Discos)==0)
 		{
 			cout<<"\nO pino remetente esta vazio, operacao invalida.\n";
 		}
-		
+		//Se o pino tiver um disco
 		else
 		{
-			Posicao_Femea=0;
+			Posicao_Femea=0;	//Variável que representa a futura posição do disco no vetor
 			for (int i=1;i<Qnt_Discos+1;i++)
 			{
+				//Se a haste não estiver vazia
 				if (*(Femea+i)!=0&&Posicao_Femea==0)
 				{
 					Posicao_Femea=i-1;
 				}
-				
+				//Se a haste estiver vazia
 				else if (*(Femea+i)==0&&i==Qnt_Discos)
 				{
 					Posicao_Femea=Qnt_Discos;
@@ -39,6 +42,7 @@ class Jogo_Logica
 			
 			
 			Posicao_Macho=0;
+			//Encontra o disco que irá enviar
 			for (int i=1;i<Qnt_Discos+1;i++)
 			{
 				if (*(Macho+i)!=0&&Posicao_Macho==0)
@@ -46,7 +50,7 @@ class Jogo_Logica
 					Posicao_Macho=i;
 				}
 			}
-			
+			//Transferência do disco, copia para a haste femea e remoção para a haste macho e teste das regras do jogo
 			if (*(Macho+Posicao_Macho)<*(Femea+Posicao_Femea+1)&&Posicao_Femea!=Qnt_Discos)
 			{
 				*(Femea+Posicao_Femea)=*(Macho+Posicao_Macho);
